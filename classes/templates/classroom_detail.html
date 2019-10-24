@@ -5,12 +5,37 @@
   <div class="card-header" style="background-color: #e3f2fd; color: 000034;">
     Classroom Details
   </div>
+  <a href="{% url 'student-create' classroom.id %}">Create Student</a>
   <div class="card-body">
-    <h5 class="card-title" style="color: 000034;">{{classroom.name}} {{classroom.subject}}</h5>
-    <p class="card-text" style="color: 000034;">{{classroom.year}}</p>
-    <a href="{% url 'classroom-update' classroom.id %}" class="btn" style="background-color: #000034; color: white;">Update</a>
-    <a href="{% url 'classroom-delete' classroom.id %}" class="btn" style="background-color: #FFA500; color: #000034;">Delete</a>
-  </div>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Exam Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+  	{% for student in classroom.student_set.all %}
+  	 <tr>
+	      <th scope="row">{{ student.id }}</th>
+	      <td>{{ student.name }}</td>
+	      <td>{{ student.gender }}</td>
+	      <td>{{ student.exam_grade }}</td>
+	      <td>
+	 		<a href="{% url 'student-update' classroom.id student.id %}" class="btn btn-outline-success my-2 my-sm-0" type="submit" value='Update'>Update</a>
+	 		<a href="{% url 'student-delete' classroom.id student.id %}" class="btn btn-outline-danger my-2 my-sm-0" type="submit" value='Delete'>Delete</a>
+	 	  </td>
+     </tr>
+  		
+  	{% endfor %}
+   
+	   
+  </tbody>
+	
+</table>
 </div>
 
 {% endblock content %}
